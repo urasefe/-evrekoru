@@ -6,8 +6,9 @@ from discord.ext import commands
 from tokenpy import token
 intents = discord.Intents.default()
 intents.message_content = True
-liste = ["taş","kağıt","makas"]
 bot = commands.Bot(command_prefix='/', intents=intents)
+
+
 def tkmo():
     global tkmr
     tkmr = random.ranint(1,3)
@@ -30,8 +31,8 @@ async def koşu(ctx):
         await ctx.send("açılıyor")
         time.sleep(1)
         os.startfile("https://www.tema.org.tr/bagis-ve-destek/yardimseverlik-kosulari")
-@bot.command
-async def vakıflar(ctx, vakf):
+@bot.command()
+async def vakiflar(ctx, vakf):
     if vakf == "çevko":
         await ctx.send("Çevko, Türkiye’de çevrenin korunması, toplumsal gelişim ve ekonomiye katkı sağlamak amacıyla sürdürülebilir bir geri kazanım sistemini sanayinin öncülüğünde geliştirmeyi hedefleyen bir vakıftır")
         time.sleep(1)
@@ -45,15 +46,27 @@ async def vakıflar(ctx, vakf):
         time.sleep(1)
         os.startfile("https://tucev.csb.gov.tr")
 
-@bot.command
+@bot.command()
 async def naber(ctx):
     await ctx.send("doğayı korumaya devam ediyorum tabiki:)")
-@bot.command
+@bot.command()
 async def quiz(ctx):
     os.startfile("https://quizizz.com/admin/quiz/5f535c6d13fefc001b3bdd1c/cevre-koruma")
-@bot.command
+@bot.command()
 async def yağhesap(ctx, lt):
-    await ctx.send(f"{lt}litre yağ {lt*1000000}litre suyu kirletir")
-    
+    await ctx.send(f"{lt}litre yağ {int(lt)*1000000} litre suyu kirletir")
+@bot.command()
+async def haber(ctx):
+    haberlist = os.listdir("çevrekoru\çevrefoto")
+    sechabr = random.choice(haberlist)
+
+    with open(f"çevrekoru\çevrefoto/{sechabr}","rb") as habr:
+         haber = discord.File(habr)
+
+    await ctx.send(file=haber)
+@bot.command()
+async def oyun(ctx):
+    os.startfile("https://play.unity.com/en/games/687d91ef-b3bf-4eb0-a451-91a4b2f4c343/webgl-builds")
+
 
 bot.run(token)
